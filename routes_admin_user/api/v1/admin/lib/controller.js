@@ -1,13 +1,16 @@
-const fs=require("fs")
-exports.getdata=(req,res)=>{
-    const userdata=req.userdata;
-    console.log(userdata);
-    const page = parseInt(req.query.page);
-    const pagelimit = parseInt(req.query.pagelimit);
-    const startIndex = (page - 1) * pagelimit;
-    const endIndex = page * pagelimit;
+const fs = require("fs");
+exports.getdata = (req, res) => {
+  const userdata = req.userdata;
+  const page = parseInt(req.query.page) || 1;
+  const pagelimit = parseInt(req.query.pagelimit) || 3;
+  const startIndex = (page - 1) * pagelimit;
+  const endIndex = page * pagelimit;
 
-    const paginateuser = userdata.slice(startIndex, endIndex);
-    return res.status(200).json({page : page,pagelimit:pagelimit,paginateuser})
-
-}
+  const paginateuser = userdata.slice(startIndex, endIndex);
+  const pagesize = Math.ceil(userdata.length / pagelimit);
+  if (page > pagesize)
+    return res.status(400).json({ Message: "Page not available!" });
+  return res
+    .status(200)
+    .json({ users: userdata.length, totalpages: pagesize, paginateuser });
+};
