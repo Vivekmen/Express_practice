@@ -32,6 +32,7 @@ const messages = {
   tokenRequire: { sMessage: 'token is require' },
   emailNotValid: { sMessage: 'Please enter a valid email' },
   userNameUpdated: { sMessage: 'userName updated successfully' },
+  serverError:{message:'Internal Server Error!'}
 };
 
 module.exports=messages

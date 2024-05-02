@@ -1,4 +1,4 @@
-const routv1 = require("express").Router();
+const routv1 = require("express").Router({caseSensitive : false});
 const usercontroller = require("./lib/controller");
 const uservalidatore = require("./lib/validator");
 const middeleweare=require("./lib/middleweare")

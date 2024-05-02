@@ -1,0 +1,10 @@
+[0mPOST /api/v1/user [33m409[0m 212.333 ms - 39[0m
+[0mPOST /api/v1/user [33m409[0m 138.558 ms - 39[0m
+[0mPOST /api/v1/user [33m409[0m 135.554 ms - 39[0m
+[0mPOST /api/v1/user [33m409[0m 139.715 ms - 39[0m
+[0mPOST /api/v1/user [33m409[0m 257.871 ms - 39[0m
+[0mPOST /api/v1/user [33m409[0m 164.698 ms - 39[0m
+[0mPOST /api/v1/user [33m409[0m 202.871 ms - 39[0m
+[0mPOST /api/v1/User [33m403[0m 98.737 ms - 30[0m
+[0mPOST /api/v1/User [33m409[0m 219.144 ms - 39[0m
+[0mPOST /api/v1/User [32m200[0m 141.310 ms - 36[0m
