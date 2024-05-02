@@ -1,6 +1,7 @@
 const envfile = {
     dev: {
-      PORT: process.env.PORT || 3000,
+      PORT: process.env.PORT || 8200,
+      SECERETKEY: process.env.SECERETKEY
     },
     stag: {
       PORT: process.env.PORT || 3300,

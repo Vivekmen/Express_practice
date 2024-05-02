@@ -30,5 +30,5 @@ app.use(express.json());
 app.use("/", route);
 
 app.listen(config.PORT, () => {
-  console.log("server is running .....");
+  console.log(`server is running on port ${config.PORT}.....`);
 });

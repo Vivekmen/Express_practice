@@ -1,8 +1,9 @@
 const fs = require("fs");
-const crypto = require("crypto");
+// const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const { messages, status } = require("../../../../../message/index");
-
+const jwt = require("jsonwebtoken");
+const config = require("../../../../../config");
 function writefile(data) {
   let userdata = JSON.stringify(data);
   fs.writeFileSync("./user.json", userdata);
@@ -16,7 +17,7 @@ function readfile() {
 
 exports.creatuser = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
     const user = req.userdata;
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
@@ -26,7 +27,7 @@ exports.creatuser = async (req, res) => {
 
     if (findusername) return res.status(409).jsonp(messages.userExists);
     if (findemail) return res.status(409).jsonp(messages.userExists);
-    user.push({ username, email, password: hash });
+    user.push({ username, email, password: hash, role });
     writefile(user);
     return res.status(200).send(messages.registerSucess);
   } catch (error) {
@@ -62,7 +63,7 @@ exports.deleteuser = (req, res) => {
     const { username } = req.body;
     let userdata = readfile();
     const findidx = userdata.findIndex((e) => e.username === username);
-    if (findidx == -1) return res.status(409).jsonp(messages.userExists);
+    if (findidx == -1) return res.status(409).jsonp(messages.userNotFound);
     userdata.splice(findidx, 1);
     writefile(userdata);
     return res.status(200).jsonp(messages.userProfiledelete);
@@ -92,15 +93,23 @@ exports.finduser = (req, res) => {
 };
 
 exports.loginuser = async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    let userdata = req.userdata;
-    const findusername = userdata.find((e) => e.username == username);
-    if (!findusername) return res.status(200).json(messages.userExists);
-    const match = await bcrypt.compare(password, findusername.password);
-    if (!match) return res.status(200).json(messages.passwordNotValid);
-    return res.status(200).json(messages.loginSuccess);
-  } catch (error) {
-    res.status(500).send(messages.serverError);
-  }
+  const { username, password, role } = req.body;
+  let userdata = req.userdata;
+  const findusername = userdata.find((e) => e.username == username);
+  if (!findusername) return res.status(200).json(messages.userNotFound);
+  const match = await bcrypt.compare(password, findusername.password);
+  if (!match) return res.status(200).json(messages.passwordNotValid);
+
+  const jwtoken = await jwt.sign(
+    {
+      username: username,
+      role: findusername.role,
+    },
+    process.env.SECERETKEY,
+    {
+      expiresIn: "4d",
+    }
+  );
+  res.setHeader("Authorization", jwtoken);
+  return res.status(200).json(messages.loginSuccess);
 };
