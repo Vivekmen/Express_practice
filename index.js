@@ -18,13 +18,12 @@ const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
   { flags: "a" }
 );
-
 app.use(morgan("dev", { stream: accessLogStream }));
-const corsoption={
-  origin:"http://127.0.0.1:5501",
-  // origin:"*"
-}
-app.use(cors(corsoption))
+// const corsoption={
+//   origin:"http://127.0.0.1:5501",
+//   // origin:"*"
+// }
+// app.use(cors(corsoption))
 app.use(express.json());
 
 app.use("/", route);
