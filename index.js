@@ -7,7 +7,8 @@ const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
 const helmet = require("helmet");
-const cors =require("cors")
+const cors = require("cors");
+
 app.use(
   helmet({
     crossOriginResourcePolicy: false,
@@ -19,11 +20,14 @@ const accessLogStream = fs.createWriteStream(
   { flags: "a" }
 );
 app.use(morgan("dev", { stream: accessLogStream }));
+
+
 // const corsoption={
 //   origin:"http://127.0.0.1:5501",
 //   // origin:"*"
 // }
 // app.use(cors(corsoption))
+
 app.use(express.json());
 
 app.use("/", route);
