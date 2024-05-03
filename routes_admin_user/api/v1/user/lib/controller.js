@@ -4,6 +4,7 @@ const { messages, status } = require("../../../../../message/index");
 const jwt = require("jsonwebtoken");
 const config = require("../../../../../config");
 // const userdatafile=require("../../../../../user.json")
+
 function writefile(data) {
   let userdata = JSON.stringify(data);
   fs.writeFile("./user.json", userdata, (err) => {
@@ -14,7 +15,6 @@ function writefile(data) {
 }
 
 function readfile(callback) {
-  
   fs.readFile("./user.json", "utf8", (err, data) => {
     if (err) return callback(err);
     const userdata = JSON.parse(data);
@@ -26,7 +26,7 @@ exports.creatuser = async (req, res) => {
   readfile(async (err, user) => {
     try {
       const { username, email, password, role } = req.body;
- 
+
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(password, salt);
 
