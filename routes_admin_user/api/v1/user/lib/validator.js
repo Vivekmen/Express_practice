@@ -13,4 +13,13 @@ exports.usercreatvalidation= (req, res,next) => {
       
       next();
   }; 
-  
+
+exports.userupdatevalidation= (req, res,next) => {
+    const {username, newusername}=req.body;
+
+     if(!username)  return res.status(409).json(messages.userreq)
+     if(!newusername)  return res.status(409).json(messages.userreq)
+     
+     next();
+ }; 
+ 

@@ -7,7 +7,7 @@ const authmiddle=require("../../../../helper/user.auth")
 // routv1.use(middeleweare.readdata)
 routv1.post("/user",uservalidatore.usercreatvalidation,usercontroller.creatuser);
 routv1.get("/user",authmiddle.authmiddleweare,usercontroller.getalluser);
-routv1.patch("/user",usercontroller.updateuser);
+routv1.patch("/user",uservalidatore.userupdatevalidation,usercontroller.updateuser);
 routv1.delete("/user",authmiddle.authmiddleweare,usercontroller.deleteuser);
 routv1.get("/user/:id",usercontroller.finduser);
 routv1.post("/user/login",usercontroller.loginuser)
