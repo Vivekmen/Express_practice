@@ -12,5 +12,5 @@ exports.getdata = (req, res) => {
     return res.status(400).json({ Message: "Page not available!" });
   return res
     .status(200)
-    .json({ users: userdata.length, totalpages: pagesize, paginateuser });
+    .json({ page_no:page, totalpages: pagesize, paginateuser });
 };
