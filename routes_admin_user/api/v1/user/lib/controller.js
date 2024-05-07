@@ -64,8 +64,8 @@ exports.updateuser = (req, res) => {
       writefile(user);
       return res.status(200).send(messages.userNameUpdated);
     });
-  } catch (error) {
-    return res.status(500).send(messages.serverError);
+  } catch (err) {
+    if(err) return res.status(500).send(messages.serverError);
   }
 };
 

@@ -8,7 +8,7 @@ const fs = require("fs");
 const path = require("path");
 const helmet = require("helmet");
 const cors = require("cors");
-
+app.use(express.urlencoded({ extended: false }))
 app.use(
   helmet({
     crossOriginResourcePolicy: false,
